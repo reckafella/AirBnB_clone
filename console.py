@@ -1,3 +1,11 @@
+#!/usr/bin/python3"""
+
+"""
+Module contains HBNBCommand Class. Class implements command line interpreter
+for the project.
+"""
+import cmd
+
 class HBNBCommand(cmd.Cmd):
     """
     class implementing entry point into Airbnb program
