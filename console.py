@@ -1,10 +1,11 @@
-#!/usr/bin/python3"""
+#!/usr/bin/python3
 
 """
 Module contains HBNBCommand Class. Class implements command line interpreter
 for the project.
 """
 import cmd
+
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -13,7 +14,7 @@ class HBNBCommand(cmd.Cmd):
     attributes:
         prompt (str): prompt
     """
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
 
     def do_EOF(self, line):
         """
@@ -30,28 +31,14 @@ class HBNBCommand(cmd.Cmd):
     def postloop(self) -> None:
         print()
 
-    def do_help(self, line):
-        """
-        Print help information
-        """
-        if line:
-            # Print help for a specific command
-            print(self.get_help(line))
-        else:
-            # Print general help
-            print("Available commands:")
-            for cmd in self.list_commands():
-                print(cmd)
-        return True
+    def help_EOF(self):
+        """ Help for EOF """
+        print("Exit the loop when user presses 'Ctrl+D' or types 'EOF'")
 
-    def do_line(self, line):
-        """
-        Handle an empty line
-        """
-        if not line:
-            return
-        else:
-            return cmd.Cmd.do_line(self, line)
+    def help_quit(self):
+        """ Help for quit command """
+        print("Exit loop when user types 'quit' on command line interpreter")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
