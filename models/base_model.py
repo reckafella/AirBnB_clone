@@ -13,7 +13,7 @@ class BaseModel:
         """
         Returns the string representation of the current instance
         """
-        return '{} {} {}'.format(self.__class__.__name__, self.id, self.__dict__)
+        return '[{}] ({}) {}'.format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
         """
@@ -23,7 +23,17 @@ class BaseModel:
 
     def to_dict(self):
         """
-        Returns a dictionary containing all key/values of '__dict__' of the
-        instance.
+        Returns a dictionary representation of the instance with 'simple object types'.
+        Includes all keys/values of '__dict__' of the instance, 
+        including the '__class__' key with the class name.
+        'created_at' and 'updated_at' are converted to string objects in ISO format.
         """
-        return self.__dict__
+        obj_dict = self.__dict__.copy()
+        obj_dict['__class__'] = self.__class__.__name__
+
+        for key, value in obj_dict.items():
+            if isinstance(value, datetime.datetime):
+                obj_dict[key] = value.isoformat()
+        
+        return {k: v for k, v in obj_dict.items() if v is not None}
+                
