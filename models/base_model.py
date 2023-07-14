@@ -5,6 +5,7 @@ In this module we describe a basemodel class for all models in our AirBnB_clone
 """
 import uuid
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -18,7 +19,6 @@ class BaseModel:
 
         """
         if not kwargs:
-            from models import storage
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
@@ -43,14 +43,12 @@ class BaseModel:
         Updates updated_at with current time when instance is changed
        
        """
-        from models import storage
         self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):
         """
         Convert instance into dict format
-
         """
         dictionary = {}
         dictionary.update(self.__dict__)
