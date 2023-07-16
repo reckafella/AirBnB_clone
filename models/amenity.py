@@ -1,8 +1,7 @@
 #!/usr/bin/python3
+""" State Module for HBNB project """
 from models.base_model import BaseModel
-""" Amenity to inherit from BaseModel"""
+
 
 class Amenity(BaseModel):
-    """The amenity class"""
-    name = ''
-
+    name = ""

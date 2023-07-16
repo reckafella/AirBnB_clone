@@ -1,13 +1,14 @@
 #!/usr/bin/python3
+""" Place Module for HBNB project """
 from models.base_model import BaseModel
-""" Place to inherit from BaseModel """
+
 
 class Place(BaseModel):
-    """The place class"""
-    city_id = ''
-    user_id = ''
-    name = ''
-    description = ''
+    """ A place to stay """
+    city_id = ""
+    user_id = ""
+    name = ""
+    description = ""
     number_rooms = 0
     number_bathrooms = 0
     max_guest = 0
