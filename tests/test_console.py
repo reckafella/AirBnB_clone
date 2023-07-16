@@ -3,7 +3,8 @@
 """
 Module contains tests to check if files pass Pep8 guidelines
 """
-import pycodestyle
+from unittest.mock import patch
+from console import HBNBCommand
 import unittest
 import os
 import pep8
@@ -29,3 +30,19 @@ class TestPep8Guidelines(unittest.TestCase):
         result = pep8style.check_files(self.dot_py_files)
         self.assertEqual(result.total_errors,
                          0, "Found code style errors (and warnings).")
+
+
+class TestHBNBCommand(unittest.TestCase):
+    """ Class used to test the console. """
+    def setUp(self) -> None:
+        """ Set up the console for each test """
+        self.cmd = HBNBCommand()
+
+    def tearDown(self) -> None:
+        """ Clear everything from memory after each test """
+        pass
+
+    def test_do_EOF(self):
+        """ Test for EOF method """
+        with patch('builtins.input', return_value='EOF'):
+            self.assertTrue(self.cmd.do_EOF(''))

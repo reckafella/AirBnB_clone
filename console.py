@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] is '{' and pline[-1] is'}'\
+                    if pline[0] == '{' and pline[-1] == '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -81,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
                         _args = _args.replace('\"', '')
             line = ' '.join([_cmd, _cls, _id, _args])
 
-        except Exception as mess:
+        except Exception:
             pass
         finally:
             return line
@@ -94,7 +94,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, command):
         """ Method to exit the HBNB console"""
-        exit()
+        return True
 
     def help_quit(self):
         """ Prints the help documentation for quit  """
@@ -102,8 +102,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """ Handles EOF to exit program """
-        print()
-        exit()
+        return True
 
     def help_EOF(self):
         """ Prints the help documentation for EOF """
@@ -225,7 +224,7 @@ class HBNBCommand(cmd.Cmd):
 
         # isolate cls from id/args, ex: (<cls>, delim, <id/args>)
         args = args.partition(" ")
-        if args[0] is not ' ':
+        if args[0] != ' ':
             c_name = args[0]
         else:  # class name not present
             print("** class name missing **")
@@ -236,7 +235,7 @@ class HBNBCommand(cmd.Cmd):
 
         # isolate id from args
         args = args[2].partition(" ")
-        if args[0] is not ' ':
+        if args[0] != ' ':
             c_id = args[0]
         else:  # id not present
             print("** instance id missing **")
