@@ -58,33 +58,6 @@ class TestConsole(unittest.TestCase):
             HBNBCommand().onecmd("count MyClass")
             expected_output = "0\n"
             self.assertEqual(f.getvalue(), expected_output)
-         
-def test_do_update(self):
-        """Test the do_update command"""
-        with patch('sys.stdout', new=StringIO()) as f:
-            # Test updating an existing object
-            HBNBCommand().onecmd("do_update MyClass <instance_id> attName attVal")
-            expected_output = ""  # Adjust this based on your expectations
-            self.assertEqual(f.getvalue(), expected_output)
 
-            # Test updating a non-existing object
-            with patch('sys.stdout', new=StringIO()) as f:
-                HBNBCommand().onecmd("do_update MyClass non_existing_id attName attVal")
-                expected_output = "** no instance found **\n"
-                self.assertEqual(f.getvalue(), expected_output)
-
-            # Test updating with missing attribute name
-            with patch('sys.stdout', new=StringIO()) as f:
-                HBNBCommand().onecmd("do_update MyClass <instance_id> ")
-                expected_output = "** attribute name missing **\n"
-                self.assertEqual(f.getvalue(), expected_output)
-
-            # Test updating with missing attribute value
-            with patch('sys.stdout', new=StringIO()) as f:
-                HBNBCommand().onecmd("do_update MyClass <instance_id> attName")
-                expected_output = "** value missing **\n"
-                self.assertEqual(f.getvalue(), expected_output)
-:
-        
 if __name__ == '__main__':
     unittest.main()
