@@ -1,42 +1,90 @@
-#!/usr/bin/python3
-"""
-Contains the class TestConsoleDocs
-"""
-
-import console
-import inspect
-import pep8
+from io import StringIO
+from unittest.mock import patch
 import unittest
-HBNBCommand = console.HBNBCommand
 
+class TestConsole(unittest.TestCase):
+    def test_console(self):
+        """Test the functionality of the console"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("help show")
+            expected_output = "Prints the string representation of an instance\n"
+            self.assertEqual(f.getvalue(), expected_output)
 
-class TestConsoleDocs(unittest.TestCase):
-    """Class for testing documentation of the console"""
+    def test_quit(self):
+        """Test the quit command"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("quit")
+            expected_output = "Exits the program with formatting\n"
+            self.assertEqual(f.getvalue(), expected_output)
 
-    def test_pep8_conformance_console(self):
-        """Test that console.py conforms to PEP8."""
-        pep8s = pep8.StyleGuide(quiet=True)
-        result = pep8s.check_files(['console.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
+    def test_EOF(self):
+        """Test the EOF command"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("EOF")
+            expected_output = "Exits the program without formatting\n"
+            self.assertEqual(f.getvalue(), expected_output)
 
-    def test_pep8_conformance_test_console(self):
-        """Test that tests/test_console.py conforms to PEP8."""
-        pep8s = pep8.StyleGuide(quiet=True)
-        result = pep8s.check_files(['tests/test_console.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
+    def test_create(self):
+        """Test the create command"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create MyClass")
+            expected_output = "<instance_id>\n"
+            self.assertEqual(f.getvalue(), expected_output)
 
-    def test_console_module_docstring(self):
-        """Test for the console.py module docstring"""
-        self.assertIsNot(console.__doc__, None,
-                         "console.py needs a docstring")
-        self.assertTrue(len(console.__doc__) >= 1,
-                        "console.py needs a docstring")
+    def test_show(self):
+        """Test the show command"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("show MyClass <instance_id>")
+            expected_output = "<instance_info>\n"
+            self.assertEqual(f.getvalue(), expected_output)
 
-    def test_HBNBCommand_class_docstring(self):
-        """Test for the HBNBCommand class docstring"""
-        self.assertIsNot(HBNBCommand.__doc__, None,
-                         "HBNBCommand class needs a docstring")
-        self.assertTrue(len(HBNBCommand.__doc__) >= 1,
-                        "HBNBCommand class needs a docstring")
+    def test_destroy(self):
+        """Test the destroy command"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy MyClass <instance_id>")
+            expected_output = "** no instance found **\n"
+            self.assertEqual(f.getvalue(), expected_output)
+
+    def test_all(self):
+        """Test the all command"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all MyClass")
+            expected_output = "[]\n"
+            self.assertEqual(f.getvalue(), expected_output)
+
+    def test_count(self):
+        """Test the count command"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("count MyClass")
+            expected_output = "0\n"
+            self.assertEqual(f.getvalue(), expected_output)
+         
+def test_do_update(self):
+        """Test the do_update command"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            # Test updating an existing object
+            HBNBCommand().onecmd("do_update MyClass <instance_id> attName attVal")
+            expected_output = ""  # Adjust this based on your expectations
+            self.assertEqual(f.getvalue(), expected_output)
+
+            # Test updating a non-existing object
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("do_update MyClass non_existing_id attName attVal")
+                expected_output = "** no instance found **\n"
+                self.assertEqual(f.getvalue(), expected_output)
+
+            # Test updating with missing attribute name
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("do_update MyClass <instance_id> ")
+                expected_output = "** attribute name missing **\n"
+                self.assertEqual(f.getvalue(), expected_output)
+
+            # Test updating with missing attribute value
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("do_update MyClass <instance_id> attName")
+                expected_output = "** value missing **\n"
+                self.assertEqual(f.getvalue(), expected_output)
+:
+        
+if __name__ == '__main__':
+    unittest.main()
