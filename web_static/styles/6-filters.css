@@ -71,5 +71,6 @@
 }
 .filters .locations:hover .popover, .filters .amenities:hover .popover {
     display: inline-block;
+    position: relative;
 }
 
